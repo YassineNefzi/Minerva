@@ -13,13 +13,13 @@ def pandas_agent(df):
         verbose=True,
     )
 
-df = pd.read_csv(
-    "https://raw.githubusercontent.com/pandas-dev/pandas/main/doc/data/titanic.csv"
-)
+# df = pd.read_csv(
+#     "https://raw.githubusercontent.com/pandas-dev/pandas/main/doc/data/titanic.csv"
+# )
 
-agent = pandas_agent(df)
+# agent = pandas_agent(df)
 
-agent.invoke("what is the size of the dataset")
+# agent.invoke("what is the size of the dataset")
 
 
 

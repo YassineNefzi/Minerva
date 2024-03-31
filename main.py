@@ -3,10 +3,8 @@ import os
 import streamlit as st
 import pandas as pd
 
-from utils.llm import get_llm
-
-
-llm = get_llm()
+from agents.pd_agent import pandas_agent
+from utils.eda_functions import eda_functions
 
 st.title("Minerva, Your Personal Data Science Assistant")
 st.write("Hello ! I am Minerva, your personal data science assistant. I am here to help you with your data science tasks. Let's get started !")
@@ -44,7 +42,8 @@ if st.session_state.clicked[1]:
         csv.seek(0)
         df = pd.read_csv(csv, low_memory=False)
     
-with st.sidebar:
-    with st.expander("EDA Steps"):
-            st.write(llm.invoke("What are the steps in exploratory data analysis?"))
+        pandas_agent = pandas_agent(df)
+
+        eda_functions(df, pandas_agent)
+    
     
