@@ -11,16 +11,14 @@ google_api_key = os.environ.get("GOOGLE_API_KEY")
 
 
 def _get_llm():
-
     return ChatGoogleGenerativeAI(
         model="gemini-pro",
         google_api_key=google_api_key,
         temperature=0,
         convert_system_message_to_human=True,
         max_retries=2,
-
     )
 
 
 def get_llm():
-    return _get_llm() #| StrOutputParser()
+    return _get_llm()  # | StrOutputParser()
