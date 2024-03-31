@@ -24,3 +24,5 @@ TestResults.xml
 minerva_env/
 
 .env
+
+__pycache__/

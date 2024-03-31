@@ -18,8 +18,9 @@ def _get_llm():
         temperature=0,
         convert_system_message_to_human=True,
         max_retries=2,
+
     )
 
 
 def get_llm():
-    return _get_llm() | StrOutputParser()
+    return _get_llm() #| StrOutputParser()
