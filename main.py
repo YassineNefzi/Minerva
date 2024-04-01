@@ -5,6 +5,7 @@ import pandas as pd
 
 from agents.pd_agent import pandas_agent
 from utils.eda_functions import eda_functions, variable_query
+from constants import MINERVA_DESCRIPTION
 
 st.title("Minerva, Your Personal Data Science Assistant")
 st.write(
@@ -12,15 +13,9 @@ st.write(
 )
 
 with st.sidebar:
-    st.caption(
-        """
-            Minerva is powered by the Langchain AI engine and Google's Generative AI. 
-            Minerva can help you with data cleaning, data visualization, and exploratory data analysis.
-            To get started, select the type of data you want to analyze and upload a file.
-            Minerva will analyze the data and provide you with insights and recommendations.
-            You can also ask Minerva questions about the data and get answers in natural language.
-            """
-    )
+    st.subheader("About Minerva")
+
+    st.caption(MINERVA_DESCRIPTION)
 
     st.divider()
 
@@ -45,8 +40,7 @@ def clicked(button):
 st.button("Get Started", on_click=clicked, args=[1])
 
 if st.session_state.clicked[1]:
-    st.header("Exploratory Data Analysis")
-    st.subheader("Solution")
+    st.header("Upload Your Dataset")
 
     csv = st.file_uploader("Upload your CSV file here", type=["csv"])
 
@@ -56,8 +50,12 @@ if st.session_state.clicked[1]:
 
         pandas_agent = pandas_agent(df)
 
+        st.header("Exploratory Data Analysis")
+
         eda_functions(df, pandas_agent)
 
-    user_query = st.text_input("Ask Minerva a question about the data")
-    if user_query:
-        variable_query(df, pandas_agent, user_query)
+        user_query = st.text_input(
+            "Select a column to analyze (make sure to use the exact column name)"
+        )
+        if user_query:
+            variable_query(df, pandas_agent, user_query)
