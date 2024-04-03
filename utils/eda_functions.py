@@ -31,8 +31,8 @@ def eda_functions(df: pd.DataFrame, _pandas_agent: pandas_agent):
         """Give me the data types of each column in the dataset in the following format :
         | Column Name | Data Type |
         |-------------|-----------|
-        | column1     |  type1    |
-        | column2     |  type2    |
+        | column1     | int64     |
+        | column2     | object    |
         Replace the column names and data types with the actual column names and data types of the dataset. example : column1 : int64.
         Note that df is the dataframe you are working with."""
     )
