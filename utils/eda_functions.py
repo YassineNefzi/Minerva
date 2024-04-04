@@ -74,6 +74,12 @@ def eda_functions(df: pd.DataFrame, _pandas_agent: pandas_agent):
     )
     st.write(new_features.get("output"))
 
+    st.subheader("Recommended Models")
+    models = _pandas_agent.invoke(
+        """What are the recommended models to use for this dataset ?"""
+    )
+    st.write(models.get("output"))
+
 
 @st.cache_data
 def variable_query(df: pd.DataFrame, _pandas_agent: pandas_agent, query: str):
@@ -87,14 +93,6 @@ def variable_query(df: pd.DataFrame, _pandas_agent: pandas_agent, query: str):
             Note that df is the dataframe you are working with."""
     )
     st.write(summary_statistics.get("output"))
-
-    # st.subheader(f"Relation Between {query} and Target")
-    # relation = _pandas_agent.invoke(
-    #     f'''Give me the relation between the {query} column and the target column.
-    #     Use any tools at your disposal and import all the necessary libraries.
-    #     Note that df is the pandas dataframe you are working with it has already been provided.'''
-    # )
-    # st.write(relation.get("output"))
 
     st.subheader(f"Missing Values in {query}")
     missing_values = _pandas_agent.invoke(

@@ -2,24 +2,17 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit as st
 
-from langchain.agents import Tool
-
-
-def plot_variable_distribution(df: pd.DataFrame, variable: str):
-    plt.figure(figsize=(10, 6))
-    sns.histplot(df[variable], color="b", bins=100, kde=True)
-    plt.show()
+from .pd_agent import pandas_agent
 
 
-def plot_correlation_matrix_numerical(df: pd.DataFrame):
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(df.corr(numeric_only=True), annot=False)
-    plt.show()
-
-
-correlation_matrix_tool = Tool.from_function(
-    plot_correlation_matrix_numerical,
-    name="correlation_matrix_tool",
-    description="Display the correlation matrix as a visualization.",
-)
+@st.cache_data
+def answer_user_query(df: pd.DataFrame, _pandas_agent: pandas_agent, query: str):
+    answer = _pandas_agent.invoke(
+        f"""Provide a response for this query : 
+        {query}
+        You may use any tools at your disposal and import all the necessary libraries and make sure to always return a string.
+        Note that df is the dataframe you are working with."""
+    )
+    return answer.get("output")

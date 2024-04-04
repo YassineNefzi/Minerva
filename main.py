@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 
 from agents.pd_agent import pandas_agent
+from agents.agent_functions import answer_user_query
 from utils.eda_functions import eda_functions, variable_query
 from constants import MINERVA_DESCRIPTION
 
@@ -54,8 +55,19 @@ if st.session_state.clicked[1]:
 
         eda_functions(df, pandas_agent)
 
-        user_query = st.text_input(
+        st.divider()
+
+        user_column_query = st.text_input(
             "Select a column to analyze (make sure to use the exact column name)"
         )
-        if user_query:
-            variable_query(df, pandas_agent, user_query)
+        st.write("OR")
+        user_general_query = st.text_input(
+            "Ask any general questions about the dataset"
+        )
+
+        if user_column_query and not user_general_query:
+            variable_query(df, pandas_agent, user_column_query)
+
+        elif user_general_query and not user_column_query:
+            answer = answer_user_query(df, pandas_agent, user_general_query)
+            st.write(answer)
