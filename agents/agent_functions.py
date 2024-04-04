@@ -12,7 +12,8 @@ def answer_user_query(df: pd.DataFrame, _pandas_agent: pandas_agent, query: str)
     answer = _pandas_agent.invoke(
         f"""Provide a response for this query : 
         {query}
-        You may use any tools at your disposal and import all the necessary libraries and make sure to always return a string.
+        Your response has to be a string.
+        You may use any tools at your disposal and import all the necessary libraries. 
         Note that df is the dataframe you are working with."""
     )
     return answer.get("output")
