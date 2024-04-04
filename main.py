@@ -58,16 +58,17 @@ if st.session_state.clicked[1]:
         st.divider()
 
         user_column_query = st.text_input(
-            "Select a column to analyze (make sure to use the exact column name)"
+            "Select a column to analyze (Make sure to use the exact column name)"
         )
-        st.write("OR")
-        user_general_query = st.text_input(
+
+        if user_column_query:
+            variable_query(df, pandas_agent, user_column_query)
+            
+            st.divider()
+
+            user_general_query = st.chat_input(
             "Ask any general questions about the dataset"
         )
-
-        if user_column_query and not user_general_query:
-            variable_query(df, pandas_agent, user_column_query)
-
-        elif user_general_query and not user_column_query:
-            answer = answer_user_query(df, pandas_agent, user_general_query)
-            st.write(answer)
+            if user_general_query:  
+                answer = answer_user_query(df, pandas_agent, user_general_query)
+                st.write(answer)

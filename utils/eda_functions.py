@@ -74,12 +74,6 @@ def eda_functions(df: pd.DataFrame, _pandas_agent: pandas_agent):
     )
     st.write(new_features.get("output"))
 
-    st.subheader("Recommended Models")
-    models = _pandas_agent.invoke(
-        """What are the recommended models to use for this dataset ?"""
-    )
-    st.write(models.get("output"))
-
 
 @st.cache_data
 def variable_query(df: pd.DataFrame, _pandas_agent: pandas_agent, query: str):
